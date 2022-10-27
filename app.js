@@ -8,7 +8,7 @@ const uploads = multer({storage});
 const db = require('./routes/db');
 const BookModel = require('./models/book');
 const GanreModel = require('./models/ganre');
-const CommentModel = require('./models/comment');
+//const CommentModel = require('./models/comment');
 
 server.set('view engine', 'ejs');
 server.set('views', './views');
@@ -22,7 +22,7 @@ server.get('/', (req, res) => {
 });
 
 server.get('/list', async (req, res) => {
-   res.render('List');
+   res.render('list');
 });
 
 server.get('/json', async (req, res) => {
@@ -36,10 +36,10 @@ server.get('/ganre', async (req, res) => {
    res.send(JSON.stringify(ganreList));
 });
 
-server.get('/comment', async (req, res) => {
-   const bookList = await BookModel.find({},'name').exec();
-   res.send(JSON.stringify(bookList));
-});
+// server.get('/comment', async (req, res) => {
+//    const bookList = await BookModel.find({},'name').exec();
+//    res.send(JSON.stringify(bookList));
+// });
 
 server.post('/stats', uploads.none(), async function(req, res){
    const ganrId = req.body.select;
@@ -58,11 +58,11 @@ server.post('/comment', uploads.none(), async function(req, res){
    const bookId = req.body.select;
    const comment = req.body.comment;
    const doc = await CommentModel.create({content: comment});
-   const bookUpdate = await BookModel.updateOne(
+   const bookUpdate = await BookModel.updateOne[(
       {_id: bookId},
       {
          $push:{ comments: doc.id}
-      });
+      })];
 
    //console.log(bookUpdate);
    console.log(doc);
@@ -83,3 +83,12 @@ const init = async() => {
    console.log(doc);
    console.log(docGanre);
 }
+init();
+
+db.once('open', () => {
+   console.log('Connect to db');
+});
+
+db.once('close', () => {
+   console.log('Close to connect to db');
+});

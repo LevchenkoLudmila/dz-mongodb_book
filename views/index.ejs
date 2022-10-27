@@ -77,16 +77,16 @@
          </aside>
       </div>
    </div>
-      <script>
-      const formEl = document.forms.userNameForm;
-      formEl.addEventListener('submit', async (ev) => {
-         ev.preventDefault();
-         const formData = new FormData(ev.target);
-         
-            const data = await axios.post('/formUser', formData);
-            console.log('fullObj:', data);
-      });
-   </script>
 </body>
+<script>
+   const formEl = document.forms.userNameForm;
+   formEl.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      const formData = new FormData(ev.target);
+      
+         const data = await axios.post('/formUser', formData);
+         console.log('fullObj:', data);
+   });
+</script>
 <script src="./script/selector.js"></script>
 </html>
